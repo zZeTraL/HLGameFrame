@@ -1,0 +1,269 @@
+/*******************************************************
+*  play.css                                           
+********************************************************/
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #34495e;
+}
+
+main {
+    width: 75%;
+    margin: auto;
+}
+
+:root {
+    --setting-display: none;
+    --game-display: initial;
+
+    --loading-error: none;
+}
+
+/**********************
+* game container
+***********************/
+.background-video-container {
+    width: 75%;
+    border-radius: 50px;
+    margin: 250px auto;
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.background-video-border {
+    border: 5px dotted #FCF0CC;
+    border-radius: 50px;  
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: -100;
+    opacity: 0.85;
+}
+
+/**********************
+* menu
+***********************/
+.menu-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 75%;
+    height: auto;
+    /*margin-top: 50px;*/
+}
+
+.menu-logo img {
+    height: 135px;
+    width: auto;
+}
+
+/**********************
+* setting
+***********************/
+.menu-setting {
+    display: flex;
+    justify-content: flex-end;
+    width: 75%;
+    z-index: 10;
+    transition: ease all .5s;
+}
+
+.menu-setting svg {
+    height: 50px;
+    padding-top: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+    opacity: 0.85;
+    z-index: 10;
+}
+
+.menu-setting svg:hover {
+    opacity: 0.55;
+}
+
+/**********************
+* setting open
+***********************/
+.setting {
+    display: var(--setting-display);
+    flex-direction: column;
+    width: 45%;
+    margin: 75px 0 50px 0;
+    height: auto;
+    border: 4px solid #EF798A;
+    border-radius: 50px;
+    background-color: #28536B;
+    opacity: 1;
+    z-index: 20;
+    position: absolute;
+    transition: ease all .5s;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 1.25rem #EF798A);
+    transition: ease all .5s;
+}
+
+.setting-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.setting-logo img {
+    height: 135px;
+    width: auto;
+    text-align: center;
+}
+
+/**********************
+* setting volume
+***********************/
+.setting-volume {
+    margin: 0 50px 25px 50px;
+}
+
+.setting-volume h3 {
+    font-family: 'BebasNeue-Regular', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2.5px;
+    margin: 10px 0 10px 0;
+    color: white;
+}
+
+.slidecontainer i {
+    color: #EF798A;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.slidecontainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 15px 0;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 75%;
+    height: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+  
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+  
+/* slider for chrome/brave etc... */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #EF798A;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* slider for mozilla */
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #EF798A;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/**********************
+* menu bouton
+***********************/
+.menu-bouton {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.menu-bouton button {
+    margin: 20px 0 20px 0;
+}
+
+
+/**********************
+* user is on mobile device
+***********************/
+.mobile {
+    display: var(--loading-error);
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    margin: 100px 0 100px 0;
+}
+
+.mobile p {
+    width: 75%;
+    font-size: 1.25rem;
+    color:#FCF0CC;
+    font-family: 'Roboto-Light', sans-serif;
+    text-align: center;
+}
+
+.error-h2 {
+    font-size: 1.75rem;
+    color:#FCF0CC;
+    font-family: 'Roboto-Regular', sans-serif;
+    margin: 0;
+}
+
+.error-line {
+    width: 100%;
+    border-top: 2px solid #FCF0CC;
+    border-radius: 25px;
+}
+
+/**********************
+* responsive
+***********************/
+
+/***************
+* Polices
+****************/
+@font-face {
+    font-family: 'BebasNeue-Regular';
+    src: url("../fonts/BebasNeue-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url("../fonts/RobotoCondensed-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url("../fonts/RobotoCondensed-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Pattaya-Regular';
+    src: url("../fonts/Pattaya-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../fonts/OpenSans-Regular.ttf') format("truetype"); 
+  }
