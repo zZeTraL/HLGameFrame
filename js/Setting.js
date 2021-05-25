@@ -42,15 +42,3 @@ function updateVolume(val){
     video.volume = val/100;
     return video.volume;
 }
-
-function test1(){
-    alert("CLIQUE DETECTE");
-}
-
-function test2(){
-    alert("CLIQUE DETECTE");
-}
-
-function test3(){
-    alert("CLIQUE DETECTE");
-}

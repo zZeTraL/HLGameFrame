@@ -26,12 +26,22 @@ window.addEventListener("resize", function(){
     }, 25);
 });
 
+//TODO FIX WIOTH A NULL ELEMENT
+//FIXE A SPEED CLICK CAUSE ERROR
 function isGamePlayable(){
     screenWidth = window.innerWidth;
     console.log("DEBUG: " + screenWidth);
-    if(screenWidth < 1250 && !bool){
-        document.getElementById("menu-section").remove();
+    if(screenWidth < 1200 && !isLoading){
+        document.getElementById("menu-section").hidden = true;
         root.style.setProperty("--loading-error", "flex");
-        bool = true;
+    } else if(!isLoading) {
+        document.getElementById("menu-section").hidden = false;
+        root.style.setProperty("--loading-error", "none");
+    } else if(isLoading && screenWidth < 900) {
+        document.getElementById("menu-section").hidden = true;
+        root.style.setProperty("--loading-error", "flex");
+    } else {
+        document.getElementById("menu-section").hidden = false;
+        root.style.setProperty("--loading-error", "none");
     }
 }
