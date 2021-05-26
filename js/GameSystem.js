@@ -147,14 +147,24 @@ function updateGameArea() {
     ninja.img.update();
     findBomb4(); // Exécution de la fonction pour trouver les bombes dans les 4 cases autour du ninja
     findBomb8(); //Fonction pour trouver les bombes dans les 8 cases autour du ninja
-    document.getElementById("nbDeCoups").innerHTML = "Nombre de coups :" + nbDeCoups;
-    document.getElementById("nbDeMorts").innerHTML = "Nombre de morts :" + nbDeMorts;
-    document.getElementById("count4").innerHTML = "Nombre de bombes dans les 4 cases voisines : " + count4; // Affichage nombre de bombes
-    document.getElementById("count8").innerHTML = "Nombre de bombes dans les 8 cases voisines : " + count8;
+    updateScoreboard(nbDeCoups, "nbDeCoups", 9999);
+    //document.getElementById("nbDeCoups").innerHTML = nbDeCoups;
+    updateScoreboard(nbDeMorts ,"nbDeMorts", 9999);
+    document.getElementById("count4").innerHTML = count4; // Affichage nombre de bombes
+    document.getElementById("count8").innerHTML = count8;
     document.getElementById("track").innerHTML = "ninja.Pos = " + ninja.Pos; //Useless
-    
-    
 }
+
+function updateScoreboard(value, id, max){
+    let tmp = document.getElementById(id);
+    if(value > max){
+        tmp.innerHTML = "ERROR";
+        tmp.style.fontSize = "3.25rem";
+    } else {
+        tmp.innerHTML = value;
+    }
+}
+
 
 var count8 = 0;
 var allowCount8 = true;

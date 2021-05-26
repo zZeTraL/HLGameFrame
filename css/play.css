@@ -100,6 +100,26 @@ main {
     opacity: 0.55;
 }
 
+.menu-help {
+    display: flex;
+    justify-content: flex-end;
+    width: 75%;
+    z-index: 10;
+    transition: ease all .5s;
+}
+
+.menu-help-img {
+    height: 50px;
+    padding-top: 20px;
+    cursor: pointer;
+    opacity: 0.85;
+    z-index: 10;
+}
+
+.menu-help img:hover {
+    opacity: 0.55;
+}
+
 /**********************
 * setting open
 ***********************/
@@ -219,6 +239,7 @@ main {
 
 .menu-bouton img:hover {
     cursor: pointer;
+    opacity: 0.75;
 }
 
 
@@ -279,7 +300,7 @@ canvas {/* Style de la zone de jeu */
 }
 
 #demo, #track {
-    visibility: hidden;
+    visibility: visible;
 }
 
 #count4, #count8, #nbDeCoups, #nbDeMorts {
@@ -289,23 +310,65 @@ canvas {/* Style de la zone de jeu */
 }
 
 .score-display {
-    padding: 25px;
+    padding: 10px;
     flex-grow: 2;
 }
 
 .score-display h3 {
     font-family: "BebasNeue-Regular", sans-serif;
     color: wheat;
-    font-size: 2rem;
+    font-size: 2.5rem;
     letter-spacing: 3.5px;
     text-align: center;
+    margin: 25px 0 15px 0; 
+}
+
+.info-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-bomb-4 {
+    background-image: url("../img/web/bomb-4.png");
+    background-position: center;
+    background-size: cover;
+    width: 160px;
+}
+
+.info-bomb-8 {
+    background-image: url("../img/web/bomb-8.png");
+    background-position: center;
+    background-size: cover;
+    width: 160px;
+}
+
+.info-dead {
+    background-image: url("../img/web/dead.png");
+    background-position: center;
+    background-size: cover;
+    width: 170px;
+}
+
+.info-score {
+    background-image: url("../img/web/score.png");
+    background-position: center;
+    background-size: cover;
+    width: 170px;
+}
+
+.info-txt {
+    font-size: 4rem;
+    color: wheat;
+    font-family: "BebasNeue-Regular", sans-serif;
+    margin: 35px 0 35px 0;
 }
 
 /**********************
 * utils
 ***********************/
 .pad-25 {
-    padding: 25px;
+    padding: 25px 0 25px 25px;
 }
 
 .padr-15 {
@@ -319,7 +382,7 @@ canvas {/* Style de la zone de jeu */
 /**********************
 * responsive
 ***********************/
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 1525px){
     .game-section {
         flex-direction: column;
     }
