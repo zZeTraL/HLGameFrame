@@ -158,8 +158,8 @@ function updateGameArea() {
 function updateScoreboard(value, id, max){
     let tmp = document.getElementById(id);
     if(value > max){
-        tmp.innerHTML = "ERROR";
-        tmp.style.fontSize = "3.25rem";
+        tmp.innerHTML = "#";
+        //tmp.style.fontSize = "3.4rem";
     } else {
         tmp.innerHTML = value;
     }

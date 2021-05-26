@@ -48,27 +48,39 @@ function isUserOnMobile(){
  */
 function isGamePlayable(){
     if(onMobile){
+        muteVideo();
         menuSection.remove();
-        root.style.setProperty("--loading-error", "flex");
+        mobile.setAttribute("class", "mobile");
+        //root.style.setProperty("--loading-error", "flex");
+        return true;
     } else {
         if(menuSection != null){
             screenWidth = window.innerWidth;
+            menuSection.setAttribute("class", "h-auto");
             console.log("DEBUG: " + screenWidth);
             if(!isLoading){
                 if(screenWidth < 1200){
+                    muteVideo();
                     menuSection.hidden = true;
-                    root.style.setProperty("--loading-error", "flex");
+                    mobile.setAttribute("class", "mobile");
+                    //root.style.setProperty("--loading-error", "flex");
                 } else {
+                    unmuteVido();
                     menuSection.hidden = false;
-                    root.style.setProperty("--loading-error", "none");
+                    //root.style.setProperty("--loading-error", "none");
+                    mobile.setAttribute("class", "display-none");
                 }
             } else {
                 if(screenWidth < 1200){
+                    muteVideo();
                     menuSection.hidden = true;
-                    root.style.setProperty("--loading-error", "flex");
+                    mobile.setAttribute("class", "mobile");
+                    //root.style.setProperty("--loading-error", "flex");
                 } else {
+                    unmuteVido();
                     menuSection.hidden = false;
-                    root.style.setProperty("--loading-error", "none");
+                    //root.style.setProperty("--loading-error", "none");
+                    mobile.setAttribute("class", "display-none");
                 }
             }
             return true;

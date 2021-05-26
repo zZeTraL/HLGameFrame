@@ -14,14 +14,14 @@ main {
 }
 
 :root {
-    --setting-display: none;
+    /*--setting-display: none;*/
     --game-display: initial;
-    --game-section: none;
+    /*--game-section: none;*/
     --background-video-loading-display: none;
 
     --background-video-padding: 56.25%;
 
-    --loading-error: none;
+    /*--loading-error: none;*/
 }
 
 /**********************
@@ -66,7 +66,7 @@ main {
     align-items: center;
     flex-direction: column;
     position: absolute;
-    width: 75%;
+    width: 74.95%;
     height: auto;
     /*margin-top: 50px;*/
 }
@@ -103,7 +103,7 @@ main {
 .menu-help {
     display: flex;
     justify-content: flex-end;
-    width: 75%;
+    width: 100%;
     z-index: 10;
     transition: ease all .5s;
 }
@@ -124,7 +124,8 @@ main {
 * setting open
 ***********************/
 .setting {
-    display: var(--setting-display);
+    /*display: var(--setting-display);*/
+    display: flex;
     flex-direction: column;
     width: 45%;
     margin: 75px 0 50px 0;
@@ -247,7 +248,7 @@ main {
 * user is on mobile device
 ***********************/
 .mobile {
-    display: var(--loading-error);
+    display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
@@ -282,7 +283,7 @@ main {
 * game
 ***********************/
 .game-section {
-    display: var(--game-section);
+    display: flex;
     height: auto;
     /*background-color: rgba(126, 168, 190, 0.65);
     border: 5px dotted #FCF0CC;
@@ -333,14 +334,14 @@ canvas {/* Style de la zone de jeu */
     background-image: url("../img/web/bomb-4.png");
     background-position: center;
     background-size: cover;
-    width: 160px;
+    width: 170px;
 }
 
 .info-bomb-8 {
     background-image: url("../img/web/bomb-8.png");
     background-position: center;
     background-size: cover;
-    width: 160px;
+    width: 170px;
 }
 
 .info-dead {
@@ -377,6 +378,10 @@ canvas {/* Style de la zone de jeu */
 
 .background-change {
     background-color: #34495e;
+}
+
+.display-none {
+    display: none;
 }
 
 /**********************

@@ -6,15 +6,14 @@
 var root = document.documentElement;
 
 var settingButton = document.getElementById("setting-button");
-var settingClass = document.querySelector(".setting");
-var settingClassStyle = getComputedStyle(settingClass);
+var settingMenu = document.getElementById("setting-menu");
 
-var video = document.getElementById("background-video");
+var video = document.getElementsByClassName("vid-vol");
+
 var volumeValue = document.getElementById("background-video-volume").value;
 
 // Listener
 settingButton.onclick = openSettingMenu;
-console.log(settingClassStyle);
 
 /**
 *
@@ -24,10 +23,16 @@ console.log(settingClassStyle);
 *
 */
 function openSettingMenu(){
-    if(settingClassStyle.display == "none"){
+    /*if(settingClassStyle.display == "none"){
         root.style.setProperty('--setting-display', 'flex');
     } else {
         root.style.setProperty('--setting-display', 'none');
+    }*/
+    console.log(settingMenu.getAttribute("class"));
+    if(settingMenu.getAttribute("class") == "display-none"){
+        settingMenu.setAttribute("class", "setting");
+    } else {
+        settingMenu.setAttribute("class", "display-none");
     }
 }
 
@@ -39,6 +44,25 @@ function openSettingMenu(){
 *
 */
 function updateVolume(val){
-    video.volume = val/100;
-    return video.volume;
+    for (let i = 0; i < video.length; i++) {
+        video[i].volume = val/100;
+    }
+}
+
+function setVolume(val){
+    for (let i = 0; i < video.length; i++) {
+        video[i].volume = val;
+    }
+}
+
+function muteVideo(){
+    for (let i = 0; i < video.length; i++) {
+        video[i].muted = true;
+    }
+}
+
+function unmuteVido(){
+    for (let i = 0; i < video.length; i++) {
+        video[i].muted = false;
+    }
 }

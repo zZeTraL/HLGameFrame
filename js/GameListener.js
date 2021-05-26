@@ -18,6 +18,8 @@ var menuSettingButton = document.getElementById("setting-button");
 var menuLogo = document.getElementById("menu-logo");
 var menuButton = document.getElementById("menu-btn");
 
+var mobile = document.getElementById("error");
+
 var gameSection = document.getElementById("game-section");
 
 var playButton = document.getElementById("play");
@@ -38,7 +40,8 @@ function loadGame(){
 
 function showGame(){
     backgroundVideoLoading.remove();
-    root.style.setProperty("--game-section", "flex");
+    gameSection.setAttribute("class", "game-section");
+    //root.style.setProperty("--game-section", "flex");
     root.style.setProperty("--background-video-padding", 0);
     backgroundVideoContainer.classList.add("pad-25", "background-change");
     menuSettingButton.classList.remove("padr-15");

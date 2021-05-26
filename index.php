@@ -14,9 +14,9 @@
 </head>
 <body onload="isUserOnMobile(), isGamePlayable()">
     <main>
-        <section id="menu-section" class="h-auto">
+        <section id="menu-section" class="display-none">
             <div id="menu" class="menu-container">
-                <div id="setting-menu" class="setting">
+                <div id="setting-menu" class="display-none">
                     <div class="setting-logo">
                         <img src="img/web/logo-game.png" alt="Logo">
                     </div>
@@ -42,13 +42,13 @@
                 </div>
             </div>
             <div class="background-video-container background-video-border">
-                <video id="background-video" autoplay loop class="responsive-iframe">
+                <video id="background-video" autoplay loop class="responsive-iframe vid-vol">
                     <source src="img/web/video.mp4" type="video/mp4">
                 </video>
-                <video id="background-video-loading" autoplay loop class="responsive-iframe background-video-loading">
+                <video id="background-video-loading" autoplay loop class="responsive-iframe background-video-loading vid-vol">
                     <source src="img/web/loading.mp4" type="video/mp4">
                 </video>
-                <div id="game-section" class="game-section">
+                <div id="game-section" class="display-none">
                     <div id="canvasGame" class="canvas"></div>
                     <aside class="score-display">
                         <h3>Scoreboard</h3>
@@ -76,7 +76,7 @@
             </div>
         </section>
 
-        <section class="mobile">
+        <section id="error" class="display-none">
             <h2 class="error-h2">Bip Booop Biiip</h2>
             <hr class="error-line">
             <p>Cette erreur survient si vous êtes sur mobile ou que vous venez de redimensionner votre fenêtre</p>
