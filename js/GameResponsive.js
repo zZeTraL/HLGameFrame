@@ -2,46 +2,78 @@
 *   gameresponsive.js
 *************************************/
 
-// Variables
-var root = document.documentElement;
-
+/*
+*   VARIABLES
+*/
+var onMobile = false;
 var timer;
 var screenWidth;
-var bool = false;
 
-function checkMobil(){
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        console.log("DEBUG: mobile");
-        document.getElementById("menu-section").remove();
-        root.style.setProperty("--loading-error", "flex");
-    } else {
-        console.log("DEBUG: not mobile");
-    }
-}
-
+/*
+*   listeners
+*/
 window.addEventListener("resize", function(){
     clearTimeout(timer);
     timer = this.setTimeout(function() {
         isGamePlayable();
-    }, 25);
+    }, 10);
 });
 
-//TODO FIX WIOTH A NULL ELEMENT
-//FIXE A SPEED CLICK CAUSE ERROR
+/*
+*   functions
+*/
+
+/**
+ * 
+ * isUserOnMobile allows to know if user is on a mobile device
+ * 
+ * @returns {Boolean}
+ */
+function isUserOnMobile(){
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        console.log("DEBUG: mobile");
+        onMobile = true;
+        return true;
+    } else {
+        console.log("DEBUG: not mobile");
+        return false;
+    }
+}
+
+/**
+ * 
+ * isGamePlayable allows to display game or not
+ * 
+ * @returns {Boolean}
+ */
 function isGamePlayable(){
-    screenWidth = window.innerWidth;
-    console.log("DEBUG: " + screenWidth);
-    if(screenWidth < 1200 && !isLoading){
-        document.getElementById("menu-section").hidden = true;
-        root.style.setProperty("--loading-error", "flex");
-    } else if(!isLoading) {
-        document.getElementById("menu-section").hidden = false;
-        root.style.setProperty("--loading-error", "none");
-    } else if(isLoading && screenWidth < 900) {
-        document.getElementById("menu-section").hidden = true;
+    if(onMobile){
+        menuSection.remove();
         root.style.setProperty("--loading-error", "flex");
     } else {
-        document.getElementById("menu-section").hidden = false;
-        root.style.setProperty("--loading-error", "none");
+        if(menuSection != null){
+            screenWidth = window.innerWidth;
+            console.log("DEBUG: " + screenWidth);
+            if(!isLoading){
+                if(screenWidth < 1200){
+                    menuSection.hidden = true;
+                    root.style.setProperty("--loading-error", "flex");
+                } else {
+                    menuSection.hidden = false;
+                    root.style.setProperty("--loading-error", "none");
+                }
+            } else {
+                if(screenWidth < 1200){
+                    menuSection.hidden = true;
+                    root.style.setProperty("--loading-error", "flex");
+                } else {
+                    menuSection.hidden = false;
+                    root.style.setProperty("--loading-error", "none");
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }
