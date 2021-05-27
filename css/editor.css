@@ -1,0 +1,90 @@
+/*******************************************************
+*  editor.css                                           
+********************************************************/
+
+
+/**********************
+* editor main
+***********************/
+#map {
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+.editor-section {
+    display: flex;
+    height: auto;
+}
+
+
+/**********************
+* editor aside
+***********************/
+.editor-display {
+  padding: 10px;
+  flex-grow: 2;
+}
+
+.editor-button-container img:hover {
+  cursor: pointer;
+}
+
+.editor-display h3 {
+  font-family: "BebasNeue-Regular", sans-serif;
+  color: wheat;
+  font-size: 2.5rem;
+  letter-spacing: 3.5px;
+  text-align: center;
+  margin: 15px 0 15px 0; 
+}
+
+.editor-button-size img {
+  height: 75px;
+  width: auto;
+}
+
+.editor-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.editor-button-build {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/*
+* select size
+*/
+.editor-button-size {
+  display: flex;
+  justify-content: center;
+}
+
+
+.editor-button-size img {
+  height: 75px;
+  width: auto;
+}
+
+
+/*
+* Utils
+*/
+.editor-img {
+  height: 150px;
+  width: auto;
+  cursor: pointer;
+}
+
+/**********************
+* responsive
+***********************/
+@media screen and (max-width: 1775px){
+  .editor-section {
+      flex-direction: column;
+  }
+}

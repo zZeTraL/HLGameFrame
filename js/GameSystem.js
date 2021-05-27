@@ -1,6 +1,9 @@
+var showWalkedOnBomb = true;//Si true, on affiche la bombe une fois qu'on est mort dessus
+const activateLineAndColHelp = true;
+
+
 function startGame() {//Fonction qui s'occupe de la mise en place du jeu
     GameMap.start();//Lance le jeu
-    document.body.appendChild(GameMap.canvas);
     document.getElementById('canvasGame').appendChild(GameMap.canvas);
     generateMap(taille,taille);//Génération de la carte selon la taille souhaitée
     linkTabToGraph();//Fonction qui lie le tableau de caractères à la map graphique
@@ -8,8 +11,13 @@ function startGame() {//Fonction qui s'occupe de la mise en place du jeu
     findBombLigne();
     lineAndColHelp();
     numberBombsAroundTileGraph();
+    for (let i = 0; i < mapTab.length; i++) {
+        flag.Graph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[12], tileX*tileSizeInPx, tileY*tileSizeInPx);
+        flag.Tab[i] = 0;
+     }
 }
 
+const mapTab =[];//Tableau qui contient les éléments de la carte
 var nbDeCoups = 0;
 var keyPressed = false;//Enregistre si la touche est pressée.
 var GameMap = {//Carte du jeu
@@ -27,6 +35,12 @@ var GameMap = {//Carte du jeu
         this.context = this.canvas.getContext("2d");//En 2D
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);//Update le jeu toutes les 20ms (50ticks/s)
+        this.canvas.addEventListener('mousedown', function (e) {
+            
+            getMousePositionFlag(GameMap.canvas, e);
+            getTileOnClickFlag();
+            placeFlag();
+        })
         window.addEventListener('keydown', function (e) {//Quand la touche est appuyée
             if(keyPressed == false){//Pour effectuer une seule action par appui
                 GameMap.key = e.keyCode;//On récupère le keycode de la touche appuyée
@@ -136,29 +150,31 @@ function updateGameArea() {
         for (let i = 0; i < taille; i++) {
             TabBombeColonne[i].update();
         }
-        for (let i = 0; i < taille; i++) {
+        for (let i = 0; i < taille + 1; i++) {
             TabBombeLigne[i].update();
         }
     }
     for (let i = 0; i < mapTab.length; i++) {
         BombsAroundArray[i].update();
     }
+    for (let i = 0; i < mapTab.length; i++) {
+        flag.Graph[i].update();
+    }
     linkBackToCharacter();   
     ninja.img.update();
     findBomb4(); // Exécution de la fonction pour trouver les bombes dans les 4 cases autour du ninja
     findBomb8(); //Fonction pour trouver les bombes dans les 8 cases autour du ninja
     updateScoreboard(nbDeCoups, "nbDeCoups", 9999);
-    //document.getElementById("nbDeCoups").innerHTML = nbDeCoups;
-    updateScoreboard(nbDeMorts ,"nbDeMorts", 9999);
+    updateScoreboard(nbDeMorts, "nbDeMorts", 9999);
     document.getElementById("count4").innerHTML = count4; // Affichage nombre de bombes
     document.getElementById("count8").innerHTML = count8;
-    document.getElementById("track").innerHTML = "ninja.Pos = " + ninja.Pos; //Useless
 }
+
 
 function updateScoreboard(value, id, max){
     let tmp = document.getElementById(id);
     if(value > max){
-        tmp.innerHTML = "#";
+        tmp.innerHTML = "###";
         //tmp.style.fontSize = "3.4rem";
     } else {
         tmp.innerHTML = value;
@@ -265,86 +281,190 @@ function findBombColonne(){
     }
  };
  
-const activateLineAndColHelp = true;
-var lineAndColGraph = []
-var nbLineAndColGraph = []
-function lineAndColHelp() {
-    if(activateLineAndColHelp == true){
-        for (let i = 0; i < taille; i++) {
-            lineAndColGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], taille*tileSizeInPx, i*tileSizeInPx);
-            lineAndColGraph[taille+i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], i*tileSizeInPx, taille*tileSizeInPx);
-        }
-        lineAndColGraph[taille*2] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], taille*tileSizeInPx, taille*tileSizeInPx);
-        for (let i = 0; i < taille; i++) {
-            switch (TabBombeColonne[i]) {//On affiche le bon numéro pour les colonnes
-                case 8:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[20], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 7:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[19], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 6:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[18], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 5:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[17], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 4:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[16], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 3:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[15], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 2:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[14], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 1:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[13], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-                case 0:
-                    TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[12], i*tileSizeInPx, taille*tileSizeInPx);
-                    break;
-            
-                default:
-                    break;
-            }
-            switch (TabBombeLigne[i]) {//On affiche le bon numéro pour les lignes
-                case 8:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[20], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 7:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[19], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 6:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[18], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 5:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[17], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 4:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[16], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 3:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[15], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 2:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[14], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 1:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[13], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-                case 0:
-                    TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[12], taille*tileSizeInPx, i*tileSizeInPx);
-                    break;
-            
-                default:
-                    break;
-            }
-        }
+ var lineAndColGraph = []
+ var nbLineAndColGraph = []
+ function lineAndColHelp() {
+     if(activateLineAndColHelp == true){
+         for (let i = 0; i < taille; i++) {
+             lineAndColGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], taille*tileSizeInPx, i*tileSizeInPx);
+             lineAndColGraph[taille+i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], i*tileSizeInPx, taille*tileSizeInPx);
+         }
+         lineAndColGraph[taille*2] = new component(tileSizeInPx, tileSizeInPx, imagesTab[21], taille*tileSizeInPx, taille*tileSizeInPx);
+         for (let i = 0; i < taille; i++) {
+             switch (TabBombeColonne[i]) {//On affiche le bon numéro pour les colonnes
+                 case 20:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[42], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 19:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[41], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 18:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[40], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 17:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[39], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 16:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[38], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 15:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[37], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 14:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[36], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 13:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[35], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 12:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[34], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 11:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[33], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 10:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[32], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 9:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[31], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 8:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[30], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 7:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[29], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 6:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[28], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 5:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[27], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 4:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[26], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 3:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[25], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 2:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[24], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 1:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[23], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+                 case 0:
+                     TabBombeColonne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[22], i*tileSizeInPx, taille*tileSizeInPx);
+                     break;
+             
+                 default:
+                     break;
+             }
+ 
+             switch (TabBombeLigne[i]) {//On affiche le bon numéro pour les lignes
+                 case 20:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[42], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 19:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[41], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 18:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[40], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 17:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[39], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 16:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[38], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 15:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[37], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 14:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[36], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 13:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[35], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 12:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[34], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 11:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[33], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 10:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[32], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 9:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[31], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 8:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[30], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 7:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[29], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 6:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[28], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 5:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[27], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 4:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[26], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 3:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[25], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 2:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[24], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 1:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[23], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+                 case 0:
+                     TabBombeLigne[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[22], taille*tileSizeInPx, i*tileSizeInPx);
+                     break;
+             
+                 default:
+                     break;
+             }
+         }
+         TabBombeLigne[taille] = new component(tileSizeInPx, tileSizeInPx, imagesTab[43], taille*tileSizeInPx, taille*tileSizeInPx);
+     }
+ }
+
+ var xOnClick = 100;
+ var yOnClick = 100;
+ function getMousePositionFlag(canvas, event) {
+     let rect = canvas.getBoundingClientRect();
+     xOnClick = event.clientX - rect.left;
+     yOnClick = event.clientY - rect.top;
+ }
+ 
+ var tileX = 10;
+ var tileY = 10;
+ var tileClickedOn = 10;
+ function getTileOnClickFlag() {
+     tileX = Math.trunc(xOnClick/tileSizeInPx);
+     tileY = Math.trunc(yOnClick/tileSizeInPx);
+     tileClickedOn = tileX + (taille*tileY);
+ }
+ 
+ var flag = {//Objet pour lier l'image du drapeau et garder l'info de où ils sont
+    Tab: [],//Tableau qui contient la position du ninja
+    Graph: [],
+};
+
+ function placeFlag(){
+    if (flag.Tab[tileClickedOn] == 1) {
+        flag.Graph[tileClickedOn] = new component(tileSizeInPx, tileSizeInPx, imagesTab[12], tileX*tileSizeInPx, tileY*tileSizeInPx);
+        flag.Tab[tileClickedOn] = 0;
     }
-}
-
-
+    else{
+        flag.Graph[tileClickedOn] = new component(tileSizeInPx, tileSizeInPx, imagesTab[6], tileX*tileSizeInPx, tileY*tileSizeInPx);
+        flag.Tab[tileClickedOn] = 1;
+    }
+ }
 
 //Fonction pour créer des éléments en forme de cases
 function component(width, height, imgsrc, x, y) {

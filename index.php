@@ -7,6 +7,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/play.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/hover.css">
 
     <!-- FONTAWESOME LIB -->
     <script src="https://kit.fontawesome.com/45e38e596f.js" crossorigin="anonymous"></script>
@@ -36,9 +38,9 @@
                     <img src="img/web/logo-game.png" alt="Logo">
                 </div>
                 <div id="menu-btn" class="menu-bouton">
-                    <img id="play" src="img/web/play.png" alt="play">
-                    <img id="story" src="img/web/story.png" alt="story">
-                    <img id="editor" src="img/web/editor.png" alt="editor">
+                    <img id="play" class="hvr-shrink" src="img/web/play.png" alt="play">
+                    <img id="story" class="hvr-shrink" src="img/web/story.png" alt="story">
+                    <img id="editor" class="hvr-shrink" src="img/web/editor.png" alt="editor">
                 </div>
             </div>
             <div class="background-video-container background-video-border">
@@ -69,7 +71,27 @@
                             </div>
                         </div>
                         <div id="menu-help" class="menu-help">
-                            <img class="menu-help-img padr-15" src="img/web/help.png" alt="help" id="help-button">
+                            <img class="menu-help-img" src="img/web/help.png" alt="help" id="help-button">
+                        </div>
+                    </aside>
+                </div>
+                <div id="editor-section" class="display-none">
+                    <div id="map">
+                        <div id="canvasDesigner"></div>
+                    </div>
+
+                    <aside class="editor-display">
+                        <h3>Editor</h3>
+                        <div id="buttons" class="editor-button-container">
+                            <div id="selectSize" class="editor-button-size"></div>
+                            <div class="editor-button">
+                                <div id="safeButtonDiv"></div>
+                                <div id="wallButtonDiv"></div>
+                                <div id="bombButtonDiv"></div>
+                            </div>
+                            <div class="editor-button-build">
+                                <div id="generateMapDiv"></div>
+                            </div>
                         </div>
                     </aside>
                 </div>
@@ -100,6 +122,7 @@
     <script src="js/GameMap.js"></script>
     <script src="js/images.js"></script>
     <script src="js/Ninja.js"></script>
+    <script src="js/mapDesigner.js"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-var taille = 10;//taille de la map
+var taille = 20;//taille de la map
 if(activateLineAndColHelp == true){
     var tileSizeInPx = 500/(taille+1);//Taille d'un carré de texture en pixel
 }
@@ -8,7 +8,7 @@ else{
 
 //La taille max (pris par rapport à l'écran 14" de l'ISEN est de 20x20 pour 25px par case = 500px*500px)
 
-const mapTab =[];//Tableau qui contient les éléments de la carte
+
 var randomNumber;//Variable qui va contenir le nombre aléatoire généré
 
 function generateMap(taille,taille){//Fonction qui génère une carte
@@ -25,20 +25,16 @@ function generateMap(taille,taille){//Fonction qui génère une carte
         }
     }
     //On fait un système pour avoir une plateforme d'apparition "safe" qui permet de prendre des informations.
-    mapTab[0] = "Spawn";
-    mapTab[1] = "Spawn";
-    mapTab[taille] = "Spawn";
-    mapTab[taille+1] = "Spawn";
+    mapTab[0] = "A";
+    mapTab[1] = "Z";
+    mapTab[taille] = "E";
+    mapTab[taille+1] = "R";
     //On fait un système pour définir une plateforme de fin, l'objectif du jeu est de l'atteindre. 
     //Pas encore programmé la "fin" (genre que ca affiche qu'on a gagné)
-    mapTab[mapTab.length-1] = "End";
-    mapTab[mapTab.length-2] = "End";
-    mapTab[mapTab.length-taille-1] = "End";
-    mapTab[mapTab.length-taille-2] = "End";
-    
-
-    var contenutab = mapTab.toString();//Useless
-    document.getElementById("demo").innerHTML = contenutab;//Useless
+    mapTab[mapTab.length-1] = "T";
+    mapTab[mapTab.length-2] = "Y";
+    mapTab[mapTab.length-taille-1] = "U";
+    mapTab[mapTab.length-taille-2] = "I";
 }
 
 
@@ -46,7 +42,6 @@ function generateMap(taille,taille){//Fonction qui génère une carte
 var gameMapGraph = [];
 
 function linkTabToGraph(){//Fonction qui lie le tableau de caractères et d'images
-
     //On mets les deux axes à 0
     var xAxis = 0, yAxis = 0;
     let alignement = true;
@@ -131,10 +126,28 @@ function linkTabToGraph(){//Fonction qui lie le tableau de caractères et d'imag
                 }
             }
         }
-        if(mapTab[i] == "Spawn"){//Spawn
-            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[6], xAxis, yAxis);
+        if(mapTab[i] == "A"){//Spawn
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[44], xAxis, yAxis);
         }
-        else if(mapTab[i] == "End"){//End
+        if(mapTab[i] == "Z"){//Spawn
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[45], xAxis, yAxis);
+        }
+        if(mapTab[i] == "E"){//Spawn
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[46], xAxis, yAxis);
+        }
+        if(mapTab[i] == "R"){//Spawn
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[47], xAxis, yAxis);
+        }
+        if(mapTab[i] == "T"){//End
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[7], xAxis, yAxis);
+        }
+        if(mapTab[i] == "Y"){//End
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[7], xAxis, yAxis);
+        }
+        if(mapTab[i] == "U"){//End
+            gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[7], xAxis, yAxis);
+        }
+        if(mapTab[i] == "I"){//End
             gameMapGraph[i] = new component(tileSizeInPx, tileSizeInPx, imagesTab[7], xAxis, yAxis);
         }
         xAxis +=tileSizeInPx;
@@ -142,7 +155,9 @@ function linkTabToGraph(){//Fonction qui lie le tableau de caractères et d'imag
         xAxis = 0;
         yAxis += tileSizeInPx;
         }
-    }   
+        console.log(gameMapGraph);  
+
+    } 
 }
 
 //Tableau qui va contenir le nombre de bombes dans les 8 cases autour d'une case d'indice i

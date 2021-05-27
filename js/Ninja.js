@@ -7,7 +7,6 @@ var ninja = {//Variable qui contient toutes les infos sur le ninja
 };
 
 var nbDeMorts = 0;
-var showWalkedOnBomb = true;//Si true, on affiche la bombe une fois qu'on est mort dessus
 //Fonction qui lie le background et le ninja
 function linkBackToCharacter(){
     for (let i = 0; i < mapTab.length; i++) {
@@ -33,13 +32,13 @@ function linkBackToCharacter(){
                     gameMapGraph[ninja.Pos] = new component(tileSizeInPx, tileSizeInPx, imagesTab[5], ninja.PosX*tileSizeInPx, ninja.PosY*tileSizeInPx);
                 }
             }
-            ninja.img = new component(tileSizeInPx, tileSizeInPx, imagesTab[8], 0, 0);
+            
+        }
+        ninja.img = new component(tileSizeInPx, tileSizeInPx, imagesTab[8], 0, 0);
             ninja.Pos = 0;
             ninja.PosX = 0;
             ninja.PosY = 0;
             nbDeMorts += 1;
-        }
-        
         
     }
 }

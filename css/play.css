@@ -41,7 +41,7 @@ main {
 }
 
 .background-video-border {
-    border: 5px dotted #FCF0CC;
+    border: 5px solid #FCF0CC;
     border-radius: 25px;  
 }
 
@@ -84,7 +84,7 @@ main {
     display: flex;
     justify-content: flex-end;
     width: 75%;
-    z-index: 10;
+    z-index: 20;
     transition: ease all .5s;
 }
 
@@ -102,7 +102,7 @@ main {
 
 .menu-help {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     width: 100%;
     z-index: 10;
     transition: ease all .5s;
@@ -134,7 +134,7 @@ main {
     border-radius: 25px;
     background-color: #28536B;
     opacity: 1;
-    z-index: 20;
+    z-index: 25;
     position: absolute;
     transition: ease all .5s;
     opacity: 0.85;
@@ -240,9 +240,7 @@ main {
 
 .menu-bouton img:hover {
     cursor: pointer;
-    opacity: 0.75;
 }
-
 
 /**********************
 * user is on mobile device
@@ -275,9 +273,6 @@ main {
     border-top: 2px solid #FCF0CC;
     border-radius: 25px;
 }
-
-
-
 
 /**********************
 * game
@@ -369,7 +364,7 @@ canvas {/* Style de la zone de jeu */
 * utils
 ***********************/
 .pad-25 {
-    padding: 25px 0 25px 25px;
+    padding: 25px 25px 25px 25px;
 }
 
 .padr-15 {
@@ -382,6 +377,10 @@ canvas {/* Style de la zone de jeu */
 
 .display-none {
     display: none;
+}
+
+.flex {
+    display: flex;
 }
 
 /**********************
