@@ -9,6 +9,7 @@
 #map {
   display: flex;
   justify-content: center;
+  align-items: center;
   z-index: 20;
 }
 
@@ -22,6 +23,7 @@
 * editor aside
 ***********************/
 .editor-display {
+  /*padding: 10px 0 10px 20px;*/
   padding: 10px;
   flex-grow: 2;
 }
@@ -39,6 +41,23 @@
   margin: 15px 0 15px 0; 
 }
 
+/**********************
+* text to copy
+***********************/
+#textToCopy {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#textToCopy input {
+  width: 100%;
+  margin: 10px 50px 10px 50px;
+}
+
+/**********************
+* editor size
+***********************/
 .editor-button-size img {
   height: 75px;
   width: auto;
@@ -56,24 +75,27 @@
   justify-content: center;
 }
 
-/*
-* select size
-*/
 .editor-button-size {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
+.info-size-txt {
+  position: absolute;
+  font-size: 2rem;
+  color: wheat;
+  font-family: "BebasNeue-Regular", sans-serif;
+}
 
 .editor-button-size img {
   height: 75px;
   width: auto;
 }
 
-
-/*
-* Utils
-*/
+/**********************
+* utils
+***********************/
 .editor-img {
   height: 150px;
   width: auto;

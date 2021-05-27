@@ -92,6 +92,12 @@
                             <div class="editor-button-build">
                                 <div id="generateMapDiv"></div>
                             </div>
+                            <div id="textToCopy">
+                                
+                            </div>
+                        </div>
+                        <div id="menu-help" class="menu-help">
+                            <img class="menu-help-img" src="img/web/help.png" alt="help" id="help-button">
                         </div>
                     </aside>
                 </div>

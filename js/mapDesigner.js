@@ -313,6 +313,7 @@ function createButtons(){
     generateMapButton.addEventListener ("click", function() {
         if(nbInputGenerated < 1){
             var inputMapTab = document.createElement("input");
+            inputMapTab.setAttribute("class", "")
             //var buttonCopyMapTab = document.createElement("button");
             //buttonCopyMapTab.innerHTML = "Click to copy";*/
             var buttonCopyMapTab = document.createElement("img");
@@ -329,13 +330,11 @@ function createButtons(){
             })
 
             inputMapTab.type = "text";
-            document.getElementById('generateMapDiv').appendChild(inputMapTab);
+            document.getElementById('textToCopy').appendChild(inputMapTab);
             contenutabDesigner = mapTabDesigner.toString();//Useless
             inputMapTab.value = contenutabDesigner;
             inputMapTab.id = 'mapTabInput';
-            generateMapButton.innerHTML = "Update the map";
-        }
-        else{
+        } else {
             contenutabDesigner = mapTabDesigner.toString();//Useless
             document.getElementById("mapTabInput").value = contenutabDesigner;
         }
@@ -365,10 +364,19 @@ function createButtons(){
     });
 
     //Affichage taille actuelle (j'ai utilisé un bouton qui ne fera au final rien car c'était beaucoup plus simple pour moi à faire et pour que ca garde le même style)
-    var displayCurrentSize = document.createElement("img");
-    displayCurrentSize.setAttribute("src", "img/web/size1.png");
-    //displayCurrentSize.setAttribute("class", "editor-img");
-    //displayCurrentSize.innerHTML = tailleDesigner;
+    var displayCurrentSize = document.createElement("p");
+    var currentSizeImg = document.createElement("img");
+    
+    // attribute of currentSizeImg
+    currentSizeImg.setAttribute("src", "img/web/size1.png");
+    currentSizeImg.setAttribute("class", "editor-img");
+
+    // attribute of displayCurrentSize
+    displayCurrentSize.innerHTML = tailleDesigner;
+    displayCurrentSize.setAttribute("class", "info-size-txt");
+
+    // append elements
+    document.getElementById("selectSize").appendChild(currentSizeImg);
     document.getElementById('selectSize').appendChild(displayCurrentSize);
     
     displayCurrentSize.addEventListener ("click", function() {
